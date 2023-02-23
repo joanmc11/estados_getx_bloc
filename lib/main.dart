@@ -1,8 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
-import 'bloc/usuario_bloc.dart';
 import 'pages/page_1.dart';
 
 void main() => runApp(const MyApp());
@@ -12,21 +11,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (_) => UsuarioBloc(),
-        )
-      ],
-      child: MaterialApp(
+    return GetMaterialApp(
         
         debugShowCheckedModeBanner: false,
-        title: 'Material App',
+        title: 'GetX App',
         initialRoute: 'pageApp',
-        routes: {
-          'pageApp': (_) => const PageApp(),
-        },
-      ),
+        getPages: [
+          GetPage(name: '/pageApp', page: ()=> const PageApp()),
+        ],
     );
   }
 }

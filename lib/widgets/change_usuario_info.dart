@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 
-import '../bloc/usuario_bloc.dart';
+import '../controllers/usuario_controller.dart';
 import '../models/usuario.dart';
 
 class ChangeUserInfo extends StatelessWidget {
@@ -9,25 +9,30 @@ class ChangeUserInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userBloc = BlocProvider.of<UsuarioBloc>(context, listen: false);
+    //print(Get.arguments);
+    final usuarioController = Get.find<UsuarioController>();
     return SizedBox(
-      height: 150,
+      height: 200,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             MaterialButton(
               onPressed: () {
-                final usuario = Usuario(
-                  nombre: 'Joan',
-                  edad: 26,
-                  profesiones: [
-                    'Domador de cabras',
-                    'Silvador gomero',
-                    'Escritor de etiquetas'
-                  ],
-                );
-                userBloc.add(ActivateUsuario(usuario));
+                usuarioController.cargarUsuario(Usuario(
+                    nombre: 'Joan',
+                    edad: 26,
+                    profesiones: [
+                      'Domador de cabras',
+                      'Escritor de etiquetas'
+                    ]));
+                Get.snackbar('Usuario establecido',
+                    '${usuarioController.usuario.value.nombre} es el nombre del Usuario',
+                    backgroundColor: Colors.white,
+                    boxShadows: [
+                      const BoxShadow(color: Colors.black38, blurRadius: 10)
+                    ],
+                    icon: const Icon(Icons.person));
               },
               color: Colors.blue,
               child: const Text(
@@ -38,10 +43,9 @@ class ChangeUserInfo extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                //Restar edad
                 MaterialButton(
                   onPressed: () {
-                    userBloc.add(SubstractAge(1));
+                    usuarioController.restarEdad(1);
                   },
                   color: Colors.blue,
                   child: const Text(
@@ -50,10 +54,9 @@ class ChangeUserInfo extends StatelessWidget {
                   ),
                 ),
                 const Text('  -  '),
-                //Sumar edad
                 MaterialButton(
                   onPressed: () {
-                    userBloc.add(AddUpAge(1));
+                    usuarioController.sumarEdad(1);
                   },
                   color: Colors.blue,
                   child: const Text(
@@ -65,11 +68,23 @@ class ChangeUserInfo extends StatelessWidget {
             ),
             MaterialButton(
               onPressed: () {
-                userBloc.add(AddProfesion('Nueva Profesion'));
+                usuarioController.agregarProfeson(
+                    'Profesion ${usuarioController.profesioneCount + 1}');
               },
               color: Colors.blue,
               child: const Text(
                 'Añadir Profesión',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            MaterialButton(
+              onPressed: () {
+                Get.changeTheme(
+                    Get.isDarkMode ? ThemeData.light() : ThemeData.dark());
+              },
+              color: Colors.blue,
+              child: const Text(
+                'Cambiar tema',
                 style: TextStyle(color: Colors.white),
               ),
             )

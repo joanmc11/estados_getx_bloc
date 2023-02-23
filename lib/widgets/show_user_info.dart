@@ -7,20 +7,18 @@ class InformacionUsuario extends StatelessWidget {
   const InformacionUsuario({
     Key? key,
     required this.usuario,
-    required this.controller,
+    
   }) : super(key: key);
 
   final Usuario usuario;
-  final ScrollController controller;
-
+  
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height-320,
+      height: MediaQuery.of(context).size.height-350,
       //padding: const EdgeInsets.all(10.0),
       child: SingleChildScrollView(
-        controller: controller,
         child: Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
