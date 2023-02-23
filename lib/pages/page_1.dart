@@ -11,33 +11,38 @@ class PageApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final usuarioCtrl = Get.put(UsuarioController());
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('GetX App'),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {
-              usuarioCtrl.borrarUsuario();
-            },
-            icon: const Icon(Icons.delete_outline),
-          )
-        ],
-      ),
-      body: Column(
-        children: [
-          const ChangeUserInfo(),
-          const Divider(),
-          Obx(
-            () => usuarioCtrl.existeUsuario.value
-                ? InformacionUsuario(
-                    usuario: usuarioCtrl.usuario.value,
-                  )
-                : const Center(
-                    child: Text('No existe el usuario'),
-                  ),
-          ),
-        ],
-      ),
-    );
+        appBar: AppBar(
+          title: const Text('GetX App'),
+          centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: () {
+                usuarioCtrl.borrarUsuario();
+              },
+              icon: const Icon(Icons.delete_outline),
+            )
+          ],
+        ),
+        body: Column(
+          children: [
+            const ChangeUserInfo(key: Key('changeUserInfo')),
+            const Divider(key: Key('divider'),),
+            Obx(
+              () => usuarioCtrl.existeUsuario.value
+                  ? InformacionUsuario(
+                    key: const Key('infoUser'),
+                      usuario: usuarioCtrl.usuario.value,
+                    )
+                  : const Center(
+                      child: Text('No existe el usuario', key: Key('noUserText'),),
+                    ),
+            ),
+          ],
+        ),
+        floatingActionButton: FloatingActionButton(
+          key: const Key('butonToNextPage'),
+          onPressed: () => Get.toNamed('/secondPage'),
+          child: const Icon(Icons.navigate_next),
+        ));
   }
 }

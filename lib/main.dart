@@ -1,4 +1,5 @@
 
+import 'package:estados_prueba/pages/page_2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
         initialRoute: 'pageApp',
         getPages: [
           GetPage(name: '/pageApp', page: ()=> const PageApp()),
+          GetPage(name: '/secondPage', page: ()=> const SecondPage()),
         ],
     );
   }
