@@ -12,7 +12,7 @@ class PageApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Pagina1'),
+        title: const Text('Bloc App'),
         centerTitle: true,
         actions: [
           IconButton(
