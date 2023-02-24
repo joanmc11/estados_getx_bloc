@@ -17,6 +17,7 @@ class ChangeUserInfo extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             MaterialButton(
+              key: const Key('createUser'),
               onPressed: () {
                 final usuario = Usuario(
                   nombre: 'Joan',

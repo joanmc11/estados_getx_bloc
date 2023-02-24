@@ -5,26 +5,36 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:estados_prueba/bloc/usuario_bloc.dart';
+import 'package:estados_prueba/main.dart';
+import 'package:estados_prueba/pages/page_1.dart';
+import 'package:estados_prueba/widgets/change_usuario_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:estados_prueba/main.dart';
+
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('User widgets test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget( MyApp());
+    await tester.pumpWidget(const MyApp());
+    final changeInfo = find.byKey(const Key('changeUserInfo'));
+    final infoUser = find.byKey(const Key('infoUser'));
+    final noUser = find.byKey(const Key('noUserText'));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Verificar que empieza sin usuarios
+    expect(changeInfo, findsOneWidget);
+    expect(infoUser, findsNothing);
+    expect(noUser, findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+      //Presionar 'Establecer usuario' y crear user
+     await tester.pumpWidget( const ChangeUserInfo());
+     //await tester.
+     
+    //await tester.pump(const Duration(milliseconds: 1000));
+    await tester.tap(find.byKey(const Key('createUser')));
+     //Verificar que se crea el usuario
+      expect(infoUser, findsOneWidget);
+      expect(noUser, findsNothing);
   });
 }

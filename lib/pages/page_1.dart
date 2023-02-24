@@ -26,17 +26,20 @@ class PageApp extends StatelessWidget {
       ),
       body: Column(
         children: [
-          const ChangeUserInfo(),
+          const ChangeUserInfo(
+            key: Key('changeUserInfo'),
+          ),
           const Divider(),
           BlocBuilder<UsuarioBloc, UsuarioState>(
             builder: (_, state) {
               return state.existUser
                   ? InformacionUsuario(
+                      key: const Key('infoUser'),
                       usuario: state.usuario!,
                       controller: ScrollController(keepScrollOffset: true),
                     )
                   : const Center(
-                      child: Text('No existe el usuario'),
+                      child: Text('No existe el usuario', key: Key('noUserText'),),
                     );
             },
           ),
